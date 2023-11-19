@@ -1,0 +1,76 @@
+[gd_scene load_steps=8 format=3 uid="uid://jiapo2h1o3am"]
+
+[ext_resource type="Script" path="res://scripts/bunny.gd" id="2_t00kv"]
+[ext_resource type="Texture2D" uid="uid://bldnm60doqcju" path="res://sprites/Complete sheet.png" id="2_w11ti"]
+
+[sub_resource type="Animation" id="Animation_w6f57"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(),
+"transitions": PackedFloat32Array(),
+"update": 1,
+"values": []
+}
+
+[sub_resource type="Animation" id="Animation_y7kwo"]
+resource_name = "dig"
+length = 0.6
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1),
+"update": 1,
+"values": [25, 26, 27, 28, 27, 26, 25]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_xm22x"]
+_data = {
+"RESET": SubResource("Animation_w6f57"),
+"dig": SubResource("Animation_y7kwo")
+}
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_202ni"]
+size = Vector2(136, 217)
+
+[sub_resource type="SegmentShape2D" id="SegmentShape2D_kcdap"]
+b = Vector2(2.98023e-08, 30.0223)
+
+[node name="Bunny" type="CharacterBody2D"]
+texture_filter = 1
+script = ExtResource("2_t00kv")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_xm22x")
+}
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = ExtResource("2_w11ti")
+hframes = 8
+vframes = 8
+frame = 26
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(12, 5.5)
+shape = SubResource("RectangleShape2D_202ni")
+
+[node name="DigCast" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="DigCast"]
+position = Vector2(12, 110)
+scale = Vector2(45.1316, 1.61948)
+shape = SubResource("SegmentShape2D_kcdap")
+
+[node name="Camera2D" type="Camera2D" parent="."]

@@ -1,0 +1,17 @@
+[gd_scene load_steps=3 format=3 uid="uid://duln76jp77asm"]
+
+[ext_resource type="Texture2D" uid="uid://bj7iayup0pbpj" path="res://sprites/Hole_up.png" id="1_vhs5l"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_uwvvx"]
+size = Vector2(213, 55.5)
+
+[node name="UpEdge" type="StaticBody2D" groups=["edge"]]
+position = Vector2(0, -89)
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+position = Vector2(-1, -45)
+texture = ExtResource("1_vhs5l")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(7, -48)
+shape = SubResource("RectangleShape2D_uwvvx")

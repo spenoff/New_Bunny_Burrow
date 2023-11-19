@@ -1,0 +1,17 @@
+[gd_scene load_steps=3 format=3 uid="uid://d2vsyllgxrw20"]
+
+[ext_resource type="Texture2D" uid="uid://djotk5dhkli5f" path="res://sprites/downEdge.png" id="1_tpi3d"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_uwvvx"]
+size = Vector2(216, 53)
+
+[node name="DownEdge" type="StaticBody2D" groups=["edge"]]
+position = Vector2(0, 80)
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+position = Vector2(-11, 30)
+texture = ExtResource("1_tpi3d")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(-8, 27)
+shape = SubResource("RectangleShape2D_uwvvx")

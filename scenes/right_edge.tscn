@@ -1,0 +1,17 @@
+[gd_scene load_steps=3 format=3 uid="uid://cw28hfsjbmo4w"]
+
+[ext_resource type="Texture2D" uid="uid://b7niv2yl8lump" path="res://sprites/Hole_ right.png" id="1_1t22p"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_uwvvx"]
+size = Vector2(65, 190)
+
+[node name="RightEdge" type="StaticBody2D" groups=["edge"]]
+position = Vector2(74, 0)
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+position = Vector2(28, 16)
+texture = ExtResource("1_1t22p")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(29, 16)
+shape = SubResource("RectangleShape2D_uwvvx")

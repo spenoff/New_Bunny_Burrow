@@ -1,0 +1,17 @@
+[gd_scene load_steps=3 format=3 uid="uid://dodshj0xdu5j8"]
+
+[ext_resource type="Texture2D" uid="uid://cegjri2s2g8ch" path="res://sprites/Hole_left.png" id="1_htx63"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_uwvvx"]
+size = Vector2(65, 190)
+
+[node name="LeftEdge" type="StaticBody2D" groups=["edge"]]
+position = Vector2(-73, 0)
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+position = Vector2(-46, 28)
+texture = ExtResource("1_htx63")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(-46, 28)
+shape = SubResource("RectangleShape2D_uwvvx")
