@@ -1,4 +1,4 @@
-[gd_scene load_steps=8 format=3 uid="uid://jiapo2h1o3am"]
+[gd_scene load_steps=11 format=3 uid="uid://jiapo2h1o3am"]
 
 [ext_resource type="Script" path="res://scripts/bunny.gd" id="2_t00kv"]
 [ext_resource type="Texture2D" uid="uid://bldnm60doqcju" path="res://sprites/Complete sheet.png" id="2_w11ti"]
@@ -35,10 +35,62 @@ tracks/0/keys = {
 "values": [25, 26, 27, 28, 27, 26, 25]
 }
 
+[sub_resource type="Animation" id="Animation_ec0x1"]
+resource_name = "walk"
+length = 0.4
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2, 0.3),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 1,
+"values": [16, 17, 18, 19]
+}
+
+[sub_resource type="Animation" id="Animation_btbjy"]
+resource_name = "idle"
+length = 1.1
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.2, 0.4, 0.6, 0.8, 1),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1),
+"update": 1,
+"values": [32, 33, 34, 35, 36, 35]
+}
+
+[sub_resource type="Animation" id="Animation_5pw37"]
+resource_name = "jump"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2, 0.3, 0.4),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1),
+"update": 1,
+"values": [8, 9, 10, 11, 12]
+}
+
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_xm22x"]
 _data = {
 "RESET": SubResource("Animation_w6f57"),
-"dig": SubResource("Animation_y7kwo")
+"dig": SubResource("Animation_y7kwo"),
+"idle": SubResource("Animation_btbjy"),
+"jump": SubResource("Animation_5pw37"),
+"walk": SubResource("Animation_ec0x1")
 }
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_202ni"]
@@ -60,7 +112,7 @@ libraries = {
 texture = ExtResource("2_w11ti")
 hframes = 8
 vframes = 8
-frame = 26
+frame = 12
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2(12, 5.5)
