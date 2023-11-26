@@ -17,6 +17,7 @@ const EDGE : String = "edge"
 
 class Animations:
 	const DIG = "dig"
+	const WALK = "walk"
 	const IDLE = "idle"
 	const JUMP = "jump"
 
@@ -70,9 +71,16 @@ func _process(delta):
 		# Check for jump input
 		if Input.is_action_just_pressed("jump") and is_on_floor():
 			velocity.y = jump_speed
+			play_animation(Animations.JUMP)
 	
 		velocity.y += gravity * delta
 		move_and_slide()
+		
+		# Check if the character has landed and is not moving
+		if is_on_floor() and velocity.x == 0:
+			play_animation(Animations.IDLE)
+		elif is_on_floor():
+			play_animation(Animations.WALK)
 	else:
 		velocity.y = Input.get_axis("up", "down") * speed
 		if velocity.x != 0 or velocity.y != 0:
