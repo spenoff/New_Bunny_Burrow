@@ -2,7 +2,10 @@ extends CharacterBody2D
 
 @onready var dig_cast = $DigCast
 @onready var animator = $AnimationPlayer
-@export var speed = 1000
+@export var speed = 1200
+@export var jump_speed = -1800
+@export var gravity = 4000
+@export var is_digging = false
 
 var left_edge_scene = preload("res://scenes/left_edge.tscn")
 var right_edge_scene = preload("res://scenes/right_edge.tscn")
@@ -11,11 +14,19 @@ var down_edge_scene = preload("res://scenes/down_edge.tscn")
 
 const DIRT : String = "dirt"
 const EDGE : String = "edge"
-const DIG : String = "dig"
+
+class Animations:
+	const DIG = "dig"
+	const IDLE = "idle"
+	const JUMP = "jump"
 
 func play_animation(animation_name):
 	# Set the animation on the AnimationPlayer
 	animator.play(animation_name)
+	
+func queue_animation(animation_name):
+	# Queue the animation on the AnimationPlayer
+	animator.queue(animation_name)
 	
 func is_dirt(node):
 	return node and node.is_in_group(DIRT)
@@ -50,22 +61,29 @@ func destory_edge(edge):
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
-	play_animation(DIG)
+	play_animation(Animations.IDLE)
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(_delta):
+func _process(delta):
 	velocity.x = Input.get_axis("left", "right") * speed
-	velocity.y = Input.get_axis("up", "down") * speed
-	if velocity.x != 0 or velocity.y != 0:
-		rotation = lerp_angle(rotation, Input.get_vector("up","down","right","left").angle(), 0.1)
-	move_and_slide()
+	if not is_digging:
+		# Check for jump input
+		if Input.is_action_just_pressed("jump") and is_on_floor():
+			velocity.y = jump_speed
 	
-	#Check if dig cast collides with dirt
-	var dig_cast_colliders = dig_cast.get_overlapping_bodies()
-	for collider in dig_cast_colliders:
-		if is_dirt(collider):
-			destory_dirt(collider)
-		if is_edge(collider):
-			destory_edge(collider)
+		velocity.y += gravity * delta
+	else:
+		velocity.y = Input.get_axis("up", "down") * speed
+		if velocity.x != 0 or velocity.y != 0:
+			rotation = lerp_angle(rotation, Input.get_vector("up","down","right","left").angle(), 0.1)
+		move_and_slide()
+	
+		#Check if dig cast collides with dirt
+		var dig_cast_colliders = dig_cast.get_overlapping_bodies()
+		for collider in dig_cast_colliders:
+			if is_dirt(collider):
+				destory_dirt(collider)
+			if is_edge(collider):
+				destory_edge(collider)
 		
 	pass 
