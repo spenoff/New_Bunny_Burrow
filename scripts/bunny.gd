@@ -72,6 +72,7 @@ func _process(delta):
 			velocity.y = jump_speed
 	
 		velocity.y += gravity * delta
+		move_and_slide()
 	else:
 		velocity.y = Input.get_axis("up", "down") * speed
 		if velocity.x != 0 or velocity.y != 0:
