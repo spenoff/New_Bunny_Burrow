@@ -1,7 +1,8 @@
-[gd_scene load_steps=11 format=3 uid="uid://jiapo2h1o3am"]
+[gd_scene load_steps=12 format=3 uid="uid://jiapo2h1o3am"]
 
 [ext_resource type="Script" path="res://scripts/bunny.gd" id="2_t00kv"]
 [ext_resource type="Texture2D" uid="uid://bldnm60doqcju" path="res://sprites/Complete sheet.png" id="2_w11ti"]
+[ext_resource type="AudioStream" uid="uid://bwbfkgox8vmcn" path="res://Music/mya's idea (caustic edition).2.mp3" id="3_36cw3"]
 
 [sub_resource type="Animation" id="Animation_w6f57"]
 length = 0.001
@@ -126,3 +127,6 @@ scale = Vector2(45.1316, 1.61948)
 shape = SubResource("SegmentShape2D_kcdap")
 
 [node name="Camera2D" type="Camera2D" parent="."]
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("3_36cw3")
