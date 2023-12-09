@@ -98,5 +98,8 @@ func _process(delta):
 				destory_dirt(collider)
 			if is_edge(collider):
 				destory_edge(collider)
+				
+		if (Input.is_action_just_released("dig") ):
+			is_digging = false
 		
 	pass 
