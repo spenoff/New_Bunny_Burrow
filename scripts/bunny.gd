@@ -81,6 +81,10 @@ func _process(delta):
 			play_animation(Animations.IDLE)
 		elif is_on_floor():
 			play_animation(Animations.WALK)
+			
+		if Input.is_action_just_pressed("dig"):
+			play_animation(Animations.DIG)
+			is_digging = true
 	else:
 		velocity.y = Input.get_axis("up", "down") * speed
 		if velocity.x != 0 or velocity.y != 0:
@@ -88,7 +92,7 @@ func _process(delta):
 		move_and_slide()
 	
 		#Check if dig cast collides with dirt
-		var dig_cast_colliders = dig_cast.get_overlapping_bodies()
+		var dig_cast_colliders = dig_cast.get_overlapping_bodies() 
 		for collider in dig_cast_colliders:
 			if is_dirt(collider):
 				destory_dirt(collider)
