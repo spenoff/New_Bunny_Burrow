@@ -84,6 +84,9 @@ func _process(delta):
 	print("Digging state: " + str(is_digging))
 	velocity.x = Input.get_axis("left", "right") * speed
 	if not is_digging:
+		# Reset rotation to normal
+		rotation = lerp_angle(rotation, 0, 0.1)
+		
 		# Check for jump input
 		if Input.is_action_just_pressed("jump") and is_on_floor():
 			velocity.y = jump_speed
