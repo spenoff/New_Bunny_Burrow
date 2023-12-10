@@ -1,16 +1,24 @@
 extends CharacterBody2D
 
 @onready var dig_cast = $DigCast
+@onready var dig_area_down = $DigAreaDown
+@onready var dig_area_up = $DigAreaUp
+@onready var dig_area_left = $DigAreaLeft
+@onready var dig_area_right = $DigAreaRight
+@onready var dig_areas = [dig_area_down, dig_area_up, dig_area_left, dig_area_right]
 @onready var animator = $AnimationPlayer
 @export var speed = 1200
 @export var jump_speed = -1800
 @export var gravity = 4000
+@export var dig_buffer_frames = 5 # Number of buffer frames
 @export var is_digging = false
 
 var left_edge_scene = preload("res://scenes/left_edge.tscn")
 var right_edge_scene = preload("res://scenes/right_edge.tscn")
 var up_edge_scene = preload("res://scenes/up_edge.tscn")
 var down_edge_scene = preload("res://scenes/down_edge.tscn")
+
+var dig_buffer_counter = 0 # Counter to track the buffer frames
 
 const DIRT : String = "dirt"
 const EDGE : String = "edge"
@@ -59,6 +67,13 @@ func destory_edge(edge):
 	if (edge):
 		edge.queue_free()
 	
+func set_digging(digging):
+	is_digging = digging
+	for dig_area in dig_areas:
+		dig_area.monitoring = digging
+		
+func reset_dig_buffer():
+	dig_buffer_counter = dig_buffer_frames # Reset buffer when collision is found
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
@@ -66,6 +81,7 @@ func _ready():
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
+	print("Digging state: " + str(is_digging))
 	velocity.x = Input.get_axis("left", "right") * speed
 	if not is_digging:
 		# Check for jump input
@@ -84,22 +100,43 @@ func _process(delta):
 			
 		if Input.is_action_just_pressed("dig"):
 			play_animation(Animations.DIG)
-			is_digging = true
+			set_digging(true)
 	else:
 		velocity.y = Input.get_axis("up", "down") * speed
 		if velocity.x != 0 or velocity.y != 0:
 			rotation = lerp_angle(rotation, Input.get_vector("up","down","right","left").angle(), 0.1)
 		move_and_slide()
 	
-		#Check if dig cast collides with dirt
-		var dig_cast_colliders = dig_cast.get_overlapping_bodies() 
-		for collider in dig_cast_colliders:
+		# Check if dig cast collides with dirt
+		var dig_colliders = []
+		for area in dig_areas:
+			var bodies = area.get_overlapping_bodies()
+			if bodies:
+				dig_colliders += bodies
+		var can_dig = false
+		for collider in dig_colliders:
 			if is_dirt(collider):
 				destory_dirt(collider)
-			if is_edge(collider):
+				can_dig = true
+				reset_dig_buffer()
+			elif is_edge(collider):
 				destory_edge(collider)
+				can_dig = true
+				reset_dig_buffer()
+		if dig_cast.is_colliding():
+			var collider = dig_cast.get_collider()
+			if is_dirt(collider) or is_edge(collider):
+				reset_dig_buffer()
+				can_dig = true
 				
-		if (Input.is_action_just_released("dig") ):
-			is_digging = false
+		# Decrement the dig buffer counter if not able to dig
+		if not can_dig and dig_buffer_counter > 0:
+			dig_buffer_counter -= 1
+			can_dig = true # Allow digging while buffer is not depleted
+				
+		# Determine if digging should stop
+		if (Input.is_action_just_released("dig") or (not can_dig and dig_buffer_counter <= 0)):
+			set_digging(false)
+			reset_dig_buffer()
 		
 	pass 

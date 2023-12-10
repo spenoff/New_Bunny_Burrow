@@ -119,14 +119,42 @@ frame = 17
 position = Vector2(12, 5.5)
 shape = SubResource("RectangleShape2D_202ni")
 
-[node name="DigCast" type="Area2D" parent="."]
+[node name="DigAreaDown" type="Area2D" parent="."]
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="DigCast"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="DigAreaDown"]
 position = Vector2(12, 110)
 scale = Vector2(45.1316, 1.61948)
+shape = SubResource("SegmentShape2D_kcdap")
+
+[node name="DigAreaUp" type="Area2D" parent="."]
+position = Vector2(-2, -242)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="DigAreaUp"]
+position = Vector2(12, 110)
+scale = Vector2(45.1316, 1.61948)
+shape = SubResource("SegmentShape2D_kcdap")
+
+[node name="DigAreaRight" type="Area2D" parent="."]
+position = Vector2(152, -69)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="DigAreaRight"]
+position = Vector2(-64, -26)
+scale = Vector2(21.6116, 7.31969)
+shape = SubResource("SegmentShape2D_kcdap")
+
+[node name="DigAreaLeft" type="Area2D" parent="."]
+position = Vector2(-14, -70)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="DigAreaLeft"]
+position = Vector2(-64, -26)
+scale = Vector2(21.6116, 7.31969)
 shape = SubResource("SegmentShape2D_kcdap")
 
 [node name="Camera2D" type="Camera2D" parent="."]
 
 [node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
 stream = ExtResource("3_36cw3")
+autoplay = true
+
+[node name="DigCast" type="RayCast2D" parent="."]
+target_position = Vector2(0, 210)
