@@ -7,6 +7,7 @@ extends CharacterBody2D
 @onready var dig_area_right = $DigAreaRight
 @onready var dig_areas = [dig_area_down, dig_area_up, dig_area_left, dig_area_right]
 @onready var animator = $AnimationPlayer
+@onready var bunnyCollider = $BunnyCollider
 @export var speed = 1200
 @export var jump_speed = -1800
 @export var gravity = 4000
@@ -69,6 +70,7 @@ func destory_edge(edge):
 	
 func set_digging(digging):
 	is_digging = digging
+	bunnyCollider.disabled = digging
 	for dig_area in dig_areas:
 		dig_area.monitoring = digging
 		

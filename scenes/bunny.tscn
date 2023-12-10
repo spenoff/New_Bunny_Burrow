@@ -115,7 +115,7 @@ hframes = 8
 vframes = 8
 frame = 17
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+[node name="BunnyCollider" type="CollisionShape2D" parent="."]
 position = Vector2(12, 5.5)
 shape = SubResource("RectangleShape2D_202ni")
 
@@ -157,4 +157,4 @@ stream = ExtResource("3_36cw3")
 autoplay = true
 
 [node name="DigCast" type="RayCast2D" parent="."]
-target_position = Vector2(0, 210)
+target_position = Vector2(0, 277)
