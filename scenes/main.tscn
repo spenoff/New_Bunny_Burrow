@@ -1,8 +1,14 @@
-[gd_scene load_steps=4 format=3 uid="uid://bk6hwvwcosi8a"]
+[gd_scene load_steps=6 format=3 uid="uid://bk6hwvwcosi8a"]
 
 [ext_resource type="PackedScene" uid="uid://jiapo2h1o3am" path="res://scenes/bunny.tscn" id="1_8rn4r"]
 [ext_resource type="PackedScene" uid="uid://4nhfhkb4gh1o" path="res://scenes/dirt.tscn" id="2_p7ukl"]
 [ext_resource type="PackedScene" uid="uid://k8haiiexf07o" path="res://inventories/inv_ui.tscn" id="3_ubsdh"]
+
+[sub_resource type="TileSetScenesCollectionSource" id="TileSetScenesCollectionSource_aiyxj"]
+scenes/1/scene = ExtResource("2_p7ukl")
+
+[sub_resource type="TileSet" id="TileSet_naykg"]
+sources/2 = SubResource("TileSetScenesCollectionSource_aiyxj")
 
 [node name="World" type="Node2D"]
 
@@ -10,52 +16,58 @@
 position = Vector2(199.087, 271.162)
 
 [node name="Dirt" parent="." instance=ExtResource("2_p7ukl")]
+position = Vector2(-79, 1249)
 
 [node name="Dirt2" parent="." instance=ExtResource("2_p7ukl")]
-position = Vector2(217, 0)
+position = Vector2(138, 1249)
 
 [node name="Dirt3" parent="." instance=ExtResource("2_p7ukl")]
-position = Vector2(433, 0)
+position = Vector2(354, 1249)
 
 [node name="Dirt4" parent="." instance=ExtResource("2_p7ukl")]
-position = Vector2(649, 0)
+position = Vector2(570, 1249)
 
 [node name="Dirt5" parent="." instance=ExtResource("2_p7ukl")]
-position = Vector2(0, -216)
+position = Vector2(-79, 1033)
 
 [node name="Dirt6" parent="." instance=ExtResource("2_p7ukl")]
-position = Vector2(217, -216)
+position = Vector2(138, 1033)
 
 [node name="Dirt7" parent="." instance=ExtResource("2_p7ukl")]
-position = Vector2(433, -216)
+position = Vector2(354, 1033)
 
 [node name="Dirt8" parent="." instance=ExtResource("2_p7ukl")]
-position = Vector2(649, -216)
+position = Vector2(570, 1033)
 
 [node name="Dirt9" parent="." instance=ExtResource("2_p7ukl")]
-position = Vector2(1, -429)
+position = Vector2(-78, 820)
 
 [node name="Dirt10" parent="." instance=ExtResource("2_p7ukl")]
-position = Vector2(218, -429)
+position = Vector2(139, 820)
 
 [node name="Dirt11" parent="." instance=ExtResource("2_p7ukl")]
-position = Vector2(434, -429)
+position = Vector2(355, 820)
 
 [node name="Dirt12" parent="." instance=ExtResource("2_p7ukl")]
-position = Vector2(650, -429)
+position = Vector2(571, 820)
 
 [node name="Dirt13" parent="." instance=ExtResource("2_p7ukl")]
-position = Vector2(1, -645)
+position = Vector2(-78, 604)
 
 [node name="Dirt14" parent="." instance=ExtResource("2_p7ukl")]
-position = Vector2(218, -645)
+position = Vector2(139, 604)
 
 [node name="Dirt15" parent="." instance=ExtResource("2_p7ukl")]
-position = Vector2(434, -645)
+position = Vector2(355, 604)
 
 [node name="Dirt16" parent="." instance=ExtResource("2_p7ukl")]
-position = Vector2(650, -645)
+position = Vector2(571, 604)
 
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
 
 [node name="Inv_UI" parent="CanvasLayer" instance=ExtResource("3_ubsdh")]
+
+[node name="TileMap" type="TileMap" parent="."]
+tile_set = SubResource("TileSet_naykg")
+format = 2
+layer_0/tile_data = PackedInt32Array(2555964, 2, 65536)
