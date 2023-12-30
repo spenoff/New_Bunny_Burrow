@@ -8,6 +8,7 @@ extends CharacterBody2D
 @onready var dig_areas = [dig_area_down, dig_area_up, dig_area_left, dig_area_right]
 @onready var animator = $AnimationPlayer
 @onready var bunnyCollider = $BunnyCollider
+@onready var sprite = $Sprite2D
 @export var speed = 1200
 @export var jump_speed = -1800
 @export var gravity = 4000
@@ -20,9 +21,12 @@ var up_edge_scene = preload("res://scenes/up_edge.tscn")
 var down_edge_scene = preload("res://scenes/down_edge.tscn")
 
 var dig_buffer_counter = 0 # Counter to track the buffer frames
+var last_horizontal_direction = 0
+var waiting_for_room = false
 
 const DIRT : String = "dirt"
 const EDGE : String = "edge"
+const DEATH : String = "death"
 
 class Animations:
 	const DIG = "dig"
@@ -73,9 +77,28 @@ func set_digging(digging):
 	bunnyCollider.disabled = digging
 	for dig_area in dig_areas:
 		dig_area.monitoring = digging
+	if not digging:
+		play_animation(Animations.IDLE)
 		
 func reset_dig_buffer():
 	dig_buffer_counter = dig_buffer_frames # Reset buffer when collision is found
+	
+
+	
+func update_collider_position(horizontal_direction):
+	var move_offset = Vector2.ZERO
+	if horizontal_direction == -1:
+		move_offset.x = -25
+	elif horizontal_direction == 1:
+		move_offset.x = 25
+	
+	# Check if we can move the collider without causing a collision
+	if move_offset != Vector2.ZERO and not test_move(bunnyCollider.global_transform, move_offset):
+		# If there is no collision, move the collider
+		waiting_for_room = false
+		bunnyCollider.position += move_offset
+	else:
+		waiting_for_room = true
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
@@ -83,11 +106,24 @@ func _ready():
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
-	print("Digging state: " + str(is_digging))
-	velocity.x = Input.get_axis("left", "right") * speed
+	print("x: ", position.x)
+	print("y: ", position.y)
+	#print("Digging state: " + str(is_digging))
+	if waiting_for_room:
+		update_collider_position(last_horizontal_direction)
+	var horizontal_direction = Input.get_axis("left", "right")
+	velocity.x = horizontal_direction * speed
 	if not is_digging:
 		# Reset rotation to normal
 		rotation = lerp_angle(rotation, 0, 0.1)
+		
+		# Ensure bunny is facing the way they are walkings
+		# Check if the character's direction has changed and update the collider position
+		if horizontal_direction != last_horizontal_direction:
+			update_collider_position(horizontal_direction)
+			last_horizontal_direction = horizontal_direction
+			
+		sprite.flip_h = (last_horizontal_direction == -1)
 		
 		# Check for jump input
 		if Input.is_action_just_pressed("jump") and is_on_floor():
@@ -107,6 +143,7 @@ func _process(delta):
 			play_animation(Animations.DIG)
 			set_digging(true)
 	else:
+		sprite.flip_h = false
 		velocity.y = Input.get_axis("up", "down") * speed
 		if velocity.x != 0 or velocity.y != 0:
 			rotation = lerp_angle(rotation, Input.get_vector("up","down","right","left").angle(), 0.1)
