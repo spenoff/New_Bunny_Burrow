@@ -1,9 +1,10 @@
-[gd_scene load_steps=7 format=3 uid="uid://bk6hwvwcosi8a"]
+[gd_scene load_steps=8 format=3 uid="uid://bk6hwvwcosi8a"]
 
 [ext_resource type="PackedScene" uid="uid://jiapo2h1o3am" path="res://scenes/bunny.tscn" id="1_8rn4r"]
+[ext_resource type="Script" path="res://scenes/main.gd" id="1_xi0dy"]
 [ext_resource type="PackedScene" uid="uid://4nhfhkb4gh1o" path="res://scenes/dirt.tscn" id="2_p7ukl"]
-[ext_resource type="PackedScene" uid="uid://k8haiiexf07o" path="res://inventories/inv_ui.tscn" id="3_ubsdh"]
 [ext_resource type="Texture2D" uid="uid://ba1js4thlmphe" path="res://sprites/Background_2.jpg" id="4_5xnda"]
+[ext_resource type="PackedScene" uid="uid://bshorxghg3s57" path="res://scenes/pause_menu.tscn" id="6_fkcgg"]
 
 [sub_resource type="TileSetScenesCollectionSource" id="TileSetScenesCollectionSource_aiyxj"]
 scenes/1/scene = ExtResource("2_p7ukl")
@@ -13,13 +14,10 @@ tile_size = Vector2i(216, 216)
 sources/2 = SubResource("TileSetScenesCollectionSource_aiyxj")
 
 [node name="World" type="Node2D"]
+script = ExtResource("1_xi0dy")
 
 [node name="Bunny" parent="." instance=ExtResource("1_8rn4r")]
 position = Vector2(199.087, 271.162)
-
-[node name="CanvasLayer" type="CanvasLayer" parent="."]
-
-[node name="Inv_UI" parent="CanvasLayer" instance=ExtResource("3_ubsdh")]
 
 [node name="TileMap" type="TileMap" parent="."]
 tile_set = SubResource("TileSet_naykg")
@@ -30,3 +28,19 @@ layer_0/tile_data = PackedInt32Array(2555964, 2, 65536, 196607, 2, 65536, 131072
 z_index = -7
 position = Vector2(1171, 121)
 texture = ExtResource("4_5xnda")
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="PauseMenu" parent="CanvasLayer" instance=ExtResource("6_fkcgg")]
+top_level = true
+layout_direction = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -3790.0
+offset_top = -2000.0
+offset_right = -3790.0
+offset_bottom = -2000.0
+scale = Vector2(6.00021, 6.00021)
