@@ -3,7 +3,7 @@
 [ext_resource type="PackedScene" uid="uid://jiapo2h1o3am" path="res://scenes/bunny.tscn" id="1_8rn4r"]
 [ext_resource type="Script" path="res://scenes/main.gd" id="1_xi0dy"]
 [ext_resource type="PackedScene" uid="uid://4nhfhkb4gh1o" path="res://scenes/dirt.tscn" id="2_p7ukl"]
-[ext_resource type="Texture2D" uid="uid://ba1js4thlmphe" path="res://sprites/Background_2.jpg" id="4_5xnda"]
+[ext_resource type="Texture2D" uid="uid://d3ms1y5ujxj3f" path="res://sprites/Background_2.jpg" id="4_5xnda"]
 [ext_resource type="PackedScene" uid="uid://bshorxghg3s57" path="res://scenes/pause_menu.tscn" id="6_fkcgg"]
 
 [sub_resource type="TileSetScenesCollectionSource" id="TileSetScenesCollectionSource_aiyxj"]
