@@ -69,6 +69,12 @@ func _process(delta):
 	if Input.is_action_just_released("dig"):
 		is_digging = false
 
+	if is_digging:
+		velocity.y = Input.get_axis("up", "down") * speed
+		if velocity.x != 0 or velocity.y != 0:
+			rotation = lerp_angle(rotation, Input.get_vector("up", "down", "right", "left").angle(), 0.1)
+		move_and_slide()
+
 	if not is_digging:
 		# Reset rotation to normal
 		rotation = lerp_angle(rotation, 0, 0.1)
