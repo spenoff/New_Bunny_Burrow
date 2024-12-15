@@ -3,12 +3,25 @@
 [ext_resource type="Texture2D" uid="uid://r62cbvon2g2f" path="res://sprites/Dirt.png" id="1_8m1g5"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_uwvvx"]
-size = Vector2(216, 216)
+size = Vector2(109, 107)
 
 [node name="Dirt" type="StaticBody2D" groups=["dirt"]]
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 texture = ExtResource("1_8m1g5")
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+[node name="BottomLeftCollider" type="CollisionShape2D" parent="."]
+position = Vector2(-53.5, 54.5)
+shape = SubResource("RectangleShape2D_uwvvx")
+
+[node name="BottomRightCollider" type="CollisionShape2D" parent="."]
+position = Vector2(53.5, 54.5)
+shape = SubResource("RectangleShape2D_uwvvx")
+
+[node name="TopLeftCollider" type="CollisionShape2D" parent="."]
+position = Vector2(-53, -54)
+shape = SubResource("RectangleShape2D_uwvvx")
+
+[node name="TopRightCollider" type="CollisionShape2D" parent="."]
+position = Vector2(57, -54)
 shape = SubResource("RectangleShape2D_uwvvx")
