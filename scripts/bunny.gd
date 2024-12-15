@@ -63,6 +63,10 @@ func _process(delta):
 		update_collider_position(last_horizontal_direction)
 	var horizontal_direction = Input.get_axis("left", "right")
 	velocity.x = horizontal_direction * speed
+	if Input.is_action_just_pressed("dig"):
+		play_animation(Animations.DIG)
+		is_digging = true
+
 	if not is_digging:
 		# Reset rotation to normal
 		rotation = lerp_angle(rotation, 0, 0.1)
