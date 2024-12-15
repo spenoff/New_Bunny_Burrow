@@ -66,6 +66,8 @@ func _process(delta):
 	if Input.is_action_just_pressed("dig"):
 		play_animation(Animations.DIG)
 		is_digging = true
+	if Input.is_action_just_released("dig"):
+		is_digging = false
 
 	if not is_digging:
 		# Reset rotation to normal
