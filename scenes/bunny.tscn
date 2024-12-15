@@ -1,4 +1,4 @@
-[gd_scene load_steps=12 format=3 uid="uid://jiapo2h1o3am"]
+[gd_scene load_steps=11 format=3 uid="uid://jiapo2h1o3am"]
 
 [ext_resource type="Script" path="res://scripts/bunny.gd" id="2_t00kv"]
 [ext_resource type="Texture2D" uid="uid://bldnm60doqcju" path="res://sprites/Complete sheet.png" id="2_w11ti"]
@@ -97,9 +97,6 @@ _data = {
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_202ni"]
 size = Vector2(136, 217)
 
-[sub_resource type="SegmentShape2D" id="SegmentShape2D_kcdap"]
-b = Vector2(2.98023e-08, 30.0223)
-
 [node name="Bunny" type="CharacterBody2D"]
 texture_filter = 1
 script = ExtResource("2_t00kv")
@@ -119,51 +116,8 @@ frame = 17
 position = Vector2(12, 5.5)
 shape = SubResource("RectangleShape2D_202ni")
 
-[node name="DigAreaDown" type="Area2D" parent="."]
-collision_layer = 3
-collision_mask = 3
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="DigAreaDown"]
-position = Vector2(12, 110)
-scale = Vector2(45.1316, 1.61948)
-shape = SubResource("SegmentShape2D_kcdap")
-
-[node name="DigAreaUp" type="Area2D" parent="."]
-position = Vector2(-2, -242)
-collision_layer = 3
-collision_mask = 3
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="DigAreaUp"]
-position = Vector2(12, 110)
-scale = Vector2(45.1316, 1.61948)
-shape = SubResource("SegmentShape2D_kcdap")
-
-[node name="DigAreaRight" type="Area2D" parent="."]
-position = Vector2(152, -69)
-collision_layer = 3
-collision_mask = 3
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="DigAreaRight"]
-position = Vector2(-64, -26)
-scale = Vector2(21.6116, 7.31969)
-shape = SubResource("SegmentShape2D_kcdap")
-
-[node name="DigAreaLeft" type="Area2D" parent="."]
-position = Vector2(-14, -70)
-collision_layer = 3
-collision_mask = 3
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="DigAreaLeft"]
-position = Vector2(-64, -26)
-scale = Vector2(21.6116, 7.31969)
-shape = SubResource("SegmentShape2D_kcdap")
-
 [node name="Camera2D" type="Camera2D" parent="."]
 
 [node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
 stream = ExtResource("3_36cw3")
 autoplay = true
-
-[node name="DigCast" type="RayCast2D" parent="."]
-target_position = Vector2(0, 277)
-collision_mask = 3
